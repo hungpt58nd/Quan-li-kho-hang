@@ -16,13 +16,15 @@ import java.util.List;
 public class FileUtil {
     private BufferedWriter bw;
     private BufferedReader br;
+    private String fileName;
 
     public FileUtil(String fileName) throws IOException {
-        bw = new BufferedWriter(new FileWriter(new File(fileName)));
-        br = new BufferedReader(new FileReader(new File(fileName)));
+        this.fileName = fileName;
     }
 
     public List<String[]> readData() throws IOException {
+        br = new BufferedReader(new FileReader(new File(fileName)));
+
         List<String[]> data = new ArrayList<>();
 
         String inLine = "";
@@ -35,6 +37,8 @@ public class FileUtil {
     }
 
     public void writeData(List<String> data) throws IOException {
+        bw = new BufferedWriter(new FileWriter(new File(fileName)));
+
         for(String inLine: data){
             bw.write(inLine + "\n");
         }

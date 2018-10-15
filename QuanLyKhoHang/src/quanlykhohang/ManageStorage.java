@@ -29,8 +29,8 @@ public class ManageStorage extends javax.swing.JFrame {
 
     private void initData() {
         try {
-            providers = new PersonService("provider.txt").convertData();
-
+            providerService = new PersonService("provider.txt");
+            providers = providerService.convertData();
         } catch (Exception e){
             System.out.println("Error");
         }
@@ -707,13 +707,12 @@ public class ManageStorage extends javax.swing.JFrame {
 
         deleteProviderBtn.setText("Xoá");
 
+
         providerTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Tên", "Địa chỉ", "Số điện thoại", "Ngày tạo", "Tổng tiền", "Ghi chú"
-            }
+                providerService.generateProviderObject(),
+                new String [] {
+                    "STT", "Tên", "Địa chỉ", "Số điện thoại", "Ngày tạo", "Tổng tiền", "Ghi chú"
+                }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
@@ -1122,6 +1121,6 @@ public class ManageStorage extends javax.swing.JFrame {
     private javax.swing.JLabel typeLabel2;
     private javax.swing.JLabel typeLabel4;
     private List<PersonEntity> providers;
-    private PersonService personService;
+    private PersonService providerService;
     // End of variables declaration//GEN-END:variables
 }

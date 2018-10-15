@@ -50,5 +50,27 @@ public class PersonService {
 
         return personEntities;
     }
-    
+
+    public Object[][] generateProviderObject() {
+        List<PersonEntity> personList = new ArrayList<>();
+        try {
+            personList = convertData();
+        } catch (Exception e){
+
+        }
+
+        Object[][] providerObj = new Object[personList.size()][7];
+
+        for(int i = 0; i < personList.size(); i++){
+            providerObj[i][0] = i + 1;
+            providerObj[i][1] = personList.get(i).name;
+            providerObj[i][2] = personList.get(i).address;
+            providerObj[i][3] = personList.get(i).phone;
+            providerObj[i][4] = personList.get(i).createdAt;
+            providerObj[i][5] = personList.get(i).total;
+            providerObj[i][6] = personList.get(i).note;
+        }
+
+        return providerObj;
+    }
 }
