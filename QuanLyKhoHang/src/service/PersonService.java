@@ -15,11 +15,11 @@ import java.util.List;
  *
  * @author Storm Spirit
  */
-public class ProviderService {
+public class PersonService {
     private FileUtil fileUtil;
 
-    public ProviderService() throws IOException {
-        fileUtil = new FileUtil("provider.txt");
+    public PersonService(String fileName) throws IOException {
+        fileUtil = new FileUtil(fileName);
     }
 
     public void save(List<PersonEntity> personEntity) throws IOException {

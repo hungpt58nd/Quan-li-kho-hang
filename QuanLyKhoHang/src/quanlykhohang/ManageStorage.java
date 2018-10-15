@@ -6,9 +6,10 @@
 package quanlykhohang;
 
 import quanlykhohang.model.PersonEntity;
+import service.PersonService;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,9 +22,18 @@ public class ManageStorage extends javax.swing.JFrame {
      * Creates new form ManageStorage
      */
     public ManageStorage() {
-
+        initData();
         initComponents();
         this.changeView(this.itemMenu);
+    }
+
+    private void initData() {
+        try {
+            providers = new PersonService("provider.txt").convertData();
+
+        } catch (Exception e){
+            System.out.println("Error");
+        }
     }
     
     private void changeView(JPanel panel){
@@ -1111,6 +1121,7 @@ public class ManageStorage extends javax.swing.JFrame {
     private javax.swing.JLabel typeLabel1;
     private javax.swing.JLabel typeLabel2;
     private javax.swing.JLabel typeLabel4;
-    private List<PersonEntity> provider;
+    private List<PersonEntity> providers;
+    private PersonService personService;
     // End of variables declaration//GEN-END:variables
 }
