@@ -16,7 +16,7 @@ import java.util.List;
  * @author Storm Spirit
  */
 public class PersonService {
-    private FileUtil fileUtil;
+    private service.FileUtil fileUtil;
 
     public PersonService(String fileName) throws IOException {
         fileUtil = new FileUtil(fileName);
