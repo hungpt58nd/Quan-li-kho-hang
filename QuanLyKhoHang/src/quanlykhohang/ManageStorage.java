@@ -5,8 +5,11 @@
  */
 package quanlykhohang;
 
+import quanlykhohang.model.PersonEntity;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.util.List;
 
 /**
  *
@@ -18,6 +21,7 @@ public class ManageStorage extends javax.swing.JFrame {
      * Creates new form ManageStorage
      */
     public ManageStorage() {
+
         initComponents();
         this.changeView(this.itemMenu);
     }
@@ -1107,5 +1111,6 @@ public class ManageStorage extends javax.swing.JFrame {
     private javax.swing.JLabel typeLabel1;
     private javax.swing.JLabel typeLabel2;
     private javax.swing.JLabel typeLabel4;
+    private List<PersonEntity> provider;
     // End of variables declaration//GEN-END:variables
 }
