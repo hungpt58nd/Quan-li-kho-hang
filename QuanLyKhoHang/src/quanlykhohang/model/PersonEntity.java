@@ -16,4 +16,9 @@ public class PersonEntity {
     public String createdAt;
     public int total;
     public String note;
+
+    @Override
+    public String toString(){
+        return name + "-" + address + "-" + phone + "-" + createdAt + "-" + total + "-" + note;
+    }
 }

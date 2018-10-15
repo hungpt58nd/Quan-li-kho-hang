@@ -10,5 +10,7 @@ package service;
  * @author Storm Spirit
  */
 public class ProviderService {
+    private String fileName = "provider.txt";
+    
     
 }
