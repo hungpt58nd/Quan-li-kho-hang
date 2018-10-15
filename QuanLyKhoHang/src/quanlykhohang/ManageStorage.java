@@ -5,9 +5,11 @@
  */
 package quanlykhohang;
 
+import quanlykhohang.model.PersonEntity;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import quanlykhohang.model.PersonEntity;
+import java.util.List;
 
 /**
  *
@@ -19,6 +21,7 @@ public class ManageStorage extends javax.swing.JFrame {
      * Creates new form ManageStorage
      */
     public ManageStorage() {
+
         initComponents();
         this.changeView(this.itemMenu);
     }
@@ -575,11 +578,6 @@ public class ManageStorage extends javax.swing.JFrame {
         providerLabel2.setText("Ghi chú");
 
         addCustomerBtn.setText("Thêm");
-        addCustomerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addCustomerBtnMouseClicked(evt);
-            }
-        });
 
         editCustomerBtn.setText("Sửa");
 
@@ -990,10 +988,6 @@ public class ManageStorage extends javax.swing.JFrame {
         changeView(this.statisticMenu);
     }//GEN-LAST:event_statisticBtnMouseClicked
 
-    private void addCustomerBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCustomerBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addCustomerBtnMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -1117,5 +1111,6 @@ public class ManageStorage extends javax.swing.JFrame {
     private javax.swing.JLabel typeLabel1;
     private javax.swing.JLabel typeLabel2;
     private javax.swing.JLabel typeLabel4;
+    private List<PersonEntity> provider;
     // End of variables declaration//GEN-END:variables
 }
