@@ -8,8 +8,14 @@ package quanlykhohang;
 import quanlykhohang.model.PersonEntity;
 import service.PersonService;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +36,7 @@ public class ManageStorage extends javax.swing.JFrame {
     private void initData() {
         try {
             providerService = new PersonService("provider.txt");
+            providerObj = providerService.generateProviderObject();
             providers = providerService.convertData();
         } catch (Exception e){
             System.out.println("Error");
@@ -46,6 +53,30 @@ public class ManageStorage extends javax.swing.JFrame {
         if(panel != null) {
             panel.setVisible(true);
         }
+    }
+
+    private void renderProviderTable(){
+        providerTable.setModel(new javax.swing.table.DefaultTableModel(
+                providerObj,
+                new String [] {
+                        "STT", "Tên", "Địa chỉ", "Số điện thoại", "Ngày tạo", "Tổng tiền", "Ghi chú"
+                }
+        ) {
+            Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
     }
 
     /**
@@ -702,33 +733,51 @@ public class ManageStorage extends javax.swing.JFrame {
         providerLabel4.setText("Ghi chú");
 
         addProviderBtn.setText("Thêm");
-
-        editProviderBtn.setText("Sửa");
-
-        deleteProviderBtn.setText("Xoá");
-
-
-        providerTable.setModel(new javax.swing.table.DefaultTableModel(
-                providerService.generateProviderObject(),
-                new String [] {
-                    "STT", "Tên", "Địa chỉ", "Số điện thoại", "Ngày tạo", "Tổng tiền", "Ghi chú"
-                }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        addProviderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProviderBtnActionPerformed(-1, evt);
             }
         });
+
+        editProviderBtn.setText("Sửa");
+        editProviderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProviderBtnActionPerformed(selectedProvider, evt);
+            }
+        });
+
+        deleteProviderBtn.setText("Xoá");
+        deleteProviderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                providers.remove(selectedProvider - 1);
+                providerService.save(providers);
+                providerObj = providerService.generateProviderObject();
+                renderProviderTable();
+            }
+        });
+
+        renderProviderTable();
+
+        providerTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                try {
+                    selectedProvider = Integer.parseInt(providerTable.getValueAt(providerTable.getSelectedRow(), 0).toString());
+                    nameProviderInput.setText(providerTable.getValueAt(providerTable.getSelectedRow(), 1).toString());
+                    addressProviderInput.setText(providerTable.getValueAt(providerTable.getSelectedRow(), 2).toString());
+                    phoneProviderInput.setText(providerTable.getValueAt(providerTable.getSelectedRow(), 3).toString());
+                    noteProviderInput.setText(providerTable.getValueAt(providerTable.getSelectedRow(), 6).toString());
+                } catch (Exception e){
+                    selectedProvider = -1;
+                    nameProviderInput.setText("");
+                    addressProviderInput.setText("");
+                    phoneProviderInput.setText("");
+                    noteProviderInput.setText("");
+                }
+
+            }
+        });
+
+
         providerTableContainer.setViewportView(providerTable);
         if (providerTable.getColumnModel().getColumnCount() > 0) {
             providerTable.getColumnModel().getColumn(0).setPreferredWidth(2);
@@ -965,6 +1014,49 @@ public class ManageStorage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addProviderBtnActionPerformed(int selectedProvider, java.awt.event.ActionEvent evt) {
+        PersonEntity personEntity = new PersonEntity();
+        personEntity.name = nameProviderInput.getText();
+        personEntity.address = addressProviderInput.getText();
+        personEntity.phone = phoneProviderInput.getText();
+        personEntity.note = noteProviderInput.getText();
+        personEntity.createdAt = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());
+        personEntity.total = 0;
+
+        if(personEntity.name == null){
+            JOptionPane.showMessageDialog(null,"Bạn không được để trống tên nhà cung cấp");
+        } else if (personEntity.address == null){
+            JOptionPane.showMessageDialog(null, "Bạn không được để trống địa chỉ nhà cung cấp");
+        } else if (personEntity.phone == null){
+            JOptionPane.showMessageDialog(null, "Bạn không được để trống số điện thoại nhà cung cấp");
+        } else {
+            Object[] o = new Object[7];
+            o[0] = this.providers.size();
+            o[1] = personEntity.name;
+            o[2] = personEntity.address;
+            o[3] = personEntity.phone;
+            o[4] = personEntity.createdAt;
+            o[5] = personEntity.total;
+            o[6] = personEntity.note;
+
+            if (selectedProvider == -1){
+                this.providers.add(personEntity);
+                ((DefaultTableModel) providerTable.getModel()).addRow(o);
+            } else {
+                this.providers.set(selectedProvider-1, personEntity);
+                providerTable.setValueAt(selectedProvider - 1, selectedProvider - 1, 0);
+                providerTable.setValueAt(personEntity.name, selectedProvider - 1, 1);
+                providerTable.setValueAt(personEntity.address, selectedProvider - 1, 2);
+                providerTable.setValueAt(personEntity.phone, selectedProvider - 1, 3);
+                providerTable.setValueAt(personEntity.createdAt, selectedProvider - 1, 4);
+                providerTable.setValueAt(personEntity.total, selectedProvider - 1, 5);
+                providerTable.setValueAt(personEntity.note, selectedProvider - 1, 6);
+            }
+
+            providerService.save(this.providers);
+        }
+    }
+
     private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
         changeView(this.storageMenu);
     }//GEN-LAST:event_importBtnActionPerformed
@@ -1122,5 +1214,7 @@ public class ManageStorage extends javax.swing.JFrame {
     private javax.swing.JLabel typeLabel4;
     private List<PersonEntity> providers;
     private PersonService providerService;
+    private int selectedProvider;
+    private Object[][] providerObj;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,14 +22,17 @@ public class PersonService {
         fileUtil = new FileUtil(fileName);
     }
 
-    public void save(List<PersonEntity> personEntity) throws IOException {
-        List<String> data = new ArrayList<>();
+    public void save(List<PersonEntity> personEntity){
+        try {
+            List<String> data = new ArrayList<>();
 
-        for(PersonEntity person: personEntity){
-            data.add(person.toString());
+            for(PersonEntity person: personEntity){
+                data.add(person.toString());
+            }
+            fileUtil.writeData(data);
+        } catch (Exception e){
+
         }
-
-        fileUtil.writeData(data);
     }
 
     public List convertData() throws IOException {
