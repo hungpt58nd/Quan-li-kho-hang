@@ -1,0 +1,73 @@
+- Thống nhất chung:
++ Các menu trừ (menu thống kê) đều có button: thêm - sửa - xoá
++ thêm: thêm 1 row trong bảng
++ sửa: chọn 1 row trong bảng sẽ load dữ liệu lên màn hình. sửa thông tin. rồi nhấn button sửa để lưu.
++ xoá: chọn 1 row. click button xoá để delete row
+
+1. Quản lí vật tư
+Màn hình:
+- Tên:
+- Mã hàng:
+- Đơn vị: cái - hộp - kg
+- Nhà cung cấp: select dựa vào menu nhà cung cấp
+- Giá nhập
+- Giá xuất
+- Ghi chú
+
+Button: Thêm - Sửa - Xoá ( có ở tất cả các màn hình)
+
+Bảng
+Stt - Tên - Mã hàng - Đơn vị - Nhà cung cấp - Số lượng - Giá nhập - Giá xuất - Ghi chú
+
+2. Nhập kho
+Màn hình:
+- Tên: Select dựa vào menu 1
+- Mã hàng: Select dựa vào menu 1
+- Số lượng:
+- Nhà cung cấp: select dựa vào menu nhà cung cấp
+
+Button: Thêm - Sửa - Xoá
+
+Bảng
+Stt - Tên - Mã hàng - Ngày nhập - Đơn vị - Số lượng - Đơn giá - Tổng tiền
+
+3. Xuất kho
+Màn hình:
+- Tên: Select dựa vào menu 1
+- Mã hàng: Select dựa vào menu 1
+- Số lượng:
+- Khách hàng: select dựa vào menu khách hàng
+
+bảng:
+Stt - Tên - Mã hàng - Khách hàng - Ngày xuất - Đơn vị - Số lượng - Đơn giá - Tổng tiền
+
+4. Khách hàng
+Màn hình:
+- tên:
+- Địa chỉ:
+- Ghi chú:
+
+Bảng
+Stt - Tên - Địa chỉ - Ngày tạo - Tổng tiền - Ghi chú
+
+5.Nhà cung cấp
+Màn hình
+- Tên:
+- Địa chỉ:
+- Ghi chú
+
+Bảng
+Stt - Tên - Địa chỉ - Ngày tạo - Tổng tiền - Ghi chú
+
+6. Thống kê
+Button: Thống kê xuất hàng - Thống kê nhâp hàng
+
+Lấy dữ liệu từ menu xuất - nhập kho
+
+bảng
+stt - tên - mã hàng - Số lượng - Tổng tiền
+
+
+
+
+
