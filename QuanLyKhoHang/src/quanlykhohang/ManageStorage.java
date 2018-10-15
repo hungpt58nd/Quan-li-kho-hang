@@ -7,6 +7,7 @@ package quanlykhohang;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import quanlykhohang.model.PersonEntity;
 
 /**
  *
@@ -574,6 +575,11 @@ public class ManageStorage extends javax.swing.JFrame {
         providerLabel2.setText("Ghi chú");
 
         addCustomerBtn.setText("Thêm");
+        addCustomerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addCustomerBtnMouseClicked(evt);
+            }
+        });
 
         editCustomerBtn.setText("Sửa");
 
@@ -983,6 +989,10 @@ public class ManageStorage extends javax.swing.JFrame {
     private void statisticBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statisticBtnMouseClicked
         changeView(this.statisticMenu);
     }//GEN-LAST:event_statisticBtnMouseClicked
+
+    private void addCustomerBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCustomerBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addCustomerBtnMouseClicked
 
     /**
      * @param args the command line arguments
